@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BookRank</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg style="display:none">
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M20 8.5c0 4.5-8 10-8 10s-8-5.5-8-10a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 8.5z"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.6 7-12a7 7 0 1 0-14 0c0 5.4 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+</svg>
+
+<div class="phone" id="phone">
+
+  <section class="screen active" data-s="splash" style="align-items:center;justify-content:center;text-align:center;gap:10px">
+    <div class="serif" style="font-size:34px;font-weight:700">BookRank</div>
+    <div style="width:36px;height:2px;background:var(--crimson);margin:6px auto"></div>
+    <div style="position:absolute;bottom:40px;left:0;right:0;font-size:10.5px;color:var(--muted);letter-spacing:.5px">DESARROLLADO POR<br><b style="color:var(--ink)">Juan David Ferrer Castillo</b></div>
+  </section>
+
+  <section class="screen" data-s="onboarding">
+    <div class="content" style="padding-top:1.5rem">
+      <div style="font-size:11px;color:var(--crimson);font-weight:600;letter-spacing:.5px">PERSONALIZACIÓN</div>
+      <h2 class="serif" style="margin:8px 0 4px">Configura tus preferencias</h2>
+      <p style="font-size:12.5px;color:var(--muted);margin:0 0 18px">Se guarda en este navegador y lo puedes cambiar luego en Configuración.</p>
+      <div class="field">Géneros favoritos</div>
+      <div class="row" id="ob-genres">
+        <div class="chip on" data-v="Ficción" onclick="toggleChip(this)">Ficción</div>
+        <div class="chip" data-v="No ficción" onclick="toggleChip(this)">No ficción</div>
+        <div class="chip" data-v="Misterio" onclick="toggleChip(this)">Misterio</div>
+        <div class="chip" data-v="Historia" onclick="toggleChip(this)">Historia</div>
+      </div>
+      <div class="field">Rango de edad</div>
+      <div class="row" id="ob-age">
+        <div class="chip" onclick="selectOnly(this)">18-25</div>
+        <div class="chip on" onclick="selectOnly(this)">26-35</div>
+        <div class="chip" onclick="selectOnly(this)">36-45</div>
+        <div class="chip" onclick="selectOnly(this)">46+</div>
+      </div>
+      <div class="field">Tema de la app</div>
+      <div class="row" id="ob-theme">
+        <div class="chip on" onclick="setTheme(false,this)">Claro</div>
+        <div class="chip" onclick="setTheme(true,this)">Oscuro</div>
+      </div>
+    </div>
+    <div style="padding:1rem 1.25rem"><button class="btn primary" onclick="finishOnboarding()">Continuar</button></div>
+  </section>
+
+  <section class="screen" data-s="home">
+    <div class="top"><h1 class="serif">BookRank</h1></div>
+    <div class="content">
+      <div class="tabs" id="home-tabs">
+        <div class="chip on" data-cat="hardcover-fiction" onclick="filterCat(this)">Ficción</div>
+        <div class="chip" data-cat="hardcover-nonfiction" onclick="filterCat(this)">No ficción</div>
+        <div class="chip" data-cat="young-adult" onclick="filterCat(this)">Juvenil</div>
+      </div>
+      <div id="book-list"><div class="spin"></div></div>
+    </div>
+    <nav class="bottomnav">
+      <div class="navitem on" data-nav="home" onclick="go('home')"><svg class="icon"><use href="#i-home"/></svg></div>
+      <div class="navitem" data-nav="favoritos" onclick="go('favoritos')"><svg class="icon"><use href="#i-heart"/></svg></div>
+      <div class="navitem" data-nav="notif" onclick="go('notif')"><svg class="icon"><use href="#i-bell"/></svg><span class="dot"></span></div>
+      <div class="navitem" data-nav="config" onclick="go('config')"><svg class="icon"><use href="#i-gear"/></svg></div>
+    </nav>
+  </section>
+
+  <section class="screen" data-s="detalle">
+    <div class="top"><span class="back" onclick="go('home')">←</span><h1>Detalle del libro</h1></div>
+    <div class="content" id="detail-body"></div>
+  </section>
+
+  <section class="screen" data-s="cercanas">
+    <div class="top"><span class="back" onclick="go('detalle')">←</span><h1>Librerías cercanas</h1></div>
+    <div class="content">
+      <div class="mapbox" id="mapbox"></div>
+      <div id="gps-btn-wrap"></div>
+      <div id="store-list"></div>
+    </div>
+  </section>
+
+  <section class="screen" data-s="favoritos">
+    <div class="top"><h1>Favoritos</h1></div>
+    <div class="content" id="fav-list"></div>
+    <nav class="bottomnav">
+      <div class="navitem" data-nav="home" onclick="go('home')"><svg class="icon"><use href="#i-home"/></svg></div>
+      <div class="navitem on" data-nav="favoritos" onclick="go('favoritos')"><svg class="icon"><use href="#i-heart"/></svg></div>
+      <div class="navitem" data-nav="notif" onclick="go('notif')"><svg class="icon"><use href="#i-bell"/></svg><span class="dot"></span></div>
+      <div class="navitem" data-nav="config" onclick="go('config')"><svg class="icon"><use href="#i-gear"/></svg></div>
+    </nav>
+  </section>
+
+  <section class="screen" data-s="notif">
+    <div class="top"><h1>Notificaciones</h1></div>
+    <div class="content">
+      <button class="btn" onclick="enableNotifs()" id="notif-btn">Activar notificaciones del navegador</button>
+      <button class="btn primary" onclick="simulateRanking()">Simular nuevo ranking</button>
+      <div id="notif-list" style="margin-top:10px"></div>
+    </div>
+    <nav class="bottomnav">
+      <div class="navitem" data-nav="home" onclick="go('home')"><svg class="icon"><use href="#i-home"/></svg></div>
+      <div class="navitem" data-nav="favoritos" onclick="go('favoritos')"><svg class="icon"><use href="#i-heart"/></svg></div>
+      <div class="navitem on" data-nav="notif" onclick="go('notif')"><svg class="icon"><use href="#i-bell"/></svg></div>
+      <div class="navitem" data-nav="config" onclick="go('config')"><svg class="icon"><use href="#i-gear"/></svg></div>
+    </nav>
+  </section>
+
+  <section class="screen" data-s="config">
+    <div class="top"><h1>Configuración</h1></div>
+    <div class="content">
+      <div style="font-size:11px;color:var(--muted);font-weight:600;margin-bottom:10px">ASPECTO DE LA APP</div>
+      <div class="prefrow" style="margin-bottom:16px"><span style="font-size:13px">Tema oscuro</span><div class="switch" id="dark-switch" onclick="toggleDark(this)"><div class="knob"></div></div></div>
+      <div style="font-size:11px;color:var(--muted);font-weight:600;margin-bottom:10px">AVISOS</div>
+      <div class="prefrow" style="margin-bottom:20px"><span style="font-size:13px">Notificaciones</span><div class="switch on" onclick="this.classList.toggle('on')"><div class="knob"></div></div></div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:18px">
+        <div style="font-size:12px;font-weight:500;margin-bottom:6px">Actividad reciente</div>
+        <div id="log-stats" style="font-size:11px;color:var(--muted);margin-bottom:6px"></div>
+        <div id="log-list"></div>
+      </div>
+      <div style="text-align:center;font-size:10.5px;color:var(--muted);border-top:1px solid var(--border);padding-top:14px">APP CREADA POR<br><b style="color:var(--ink)">Juan David Ferrer Castillo</b></div>
+    </div>
+    <nav class="bottomnav">
+      <div class="navitem" data-nav="home" onclick="go('home')"><svg class="icon"><use href="#i-home"/></svg></div>
+      <div class="navitem" data-nav="favoritos" onclick="go('favoritos')"><svg class="icon"><use href="#i-heart"/></svg></div>
+      <div class="navitem" data-nav="notif" onclick="go('notif')"><svg class="icon"><use href="#i-bell"/></svg><span class="dot"></span></div>
+      <div class="navitem on" data-nav="config" onclick="go('config')"><svg class="icon"><use href="#i-gear"/></svg></div>
+    </nav>
+  </section>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
