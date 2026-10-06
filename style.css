@@ -2,10 +2,10 @@
 :root{--crimson:#E63950;--crimson-ink:#fff;--ink:#1B1B1F;--muted:#75757D;--bg:#EFEFF1;--surface:#FFFFFF;--border:#ECECEE;--soft:#FDECEE;--gps:#3B6EA5;}
 body.dark{--crimson:#FF5C72;--crimson-ink:#1B1B1F;--ink:#F2F1EE;--muted:#A8A6A0;--bg:#141316;--surface:#1F1E22;--border:#2C2B30;--soft:#3A2226;--gps:#7FA8D4;}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);font-family:'Inter',sans-serif;color:var(--ink);display:flex;justify-content:center;padding:2rem 1rem;min-height:100%;
-  padding-top:calc(2rem + env(safe-area-inset-top,0px));padding-bottom:calc(2rem + env(safe-area-inset-bottom,0px));}
+body{margin:0;background:var(--bg);font-family:'Inter',sans-serif;color:var(--ink);display:flex;justify-content:center;align-items:center;height:100vh;padding:2rem 1rem;
+  padding-top:calc(2rem + env(safe-area-inset-top,0px));padding-bottom:calc(2rem + env(safe-area-inset-bottom,0px));box-sizing:border-box;}
 .serif{font-family:'Fraunces',serif}
-.phone{width:100%;max-width:380px;height:730px;background:var(--surface);border-radius:32px;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--border);position:relative}
+.phone{width:100%;max-width:380px;height:min(730px, calc(100vh - 4rem));background:var(--surface);border-radius:32px;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--border);position:relative}
 @media (max-width:480px){
   html,body{height:100%}
   body{padding:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -50,3 +50,5 @@ body{margin:0;background:var(--bg);font-family:'Inter',sans-serif;color:var(--in
 .spin{width:18px;height:18px;border:2px solid var(--muted);border-top-color:var(--crimson);border-radius:50%;animation:sp .7s linear infinite;margin:40px auto}
 @keyframes sp{to{transform:rotate(360deg)}}
 .logtxt{font-size:10.5px;color:var(--muted);display:flex;justify-content:space-between}
+.content::-webkit-scrollbar, .tabs::-webkit-scrollbar { display: none; }
+.content, .tabs { scrollbar-width: none; -ms-overflow-style: none; }
