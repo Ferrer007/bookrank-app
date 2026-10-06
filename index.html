@@ -55,10 +55,12 @@
     <div class="top"><h1 class="serif">BookRank</h1></div>
     <div class="content">
       <div class="tabs" id="home-tabs">
-        <div class="chip on" data-cat="hardcover-fiction" onclick="filterCat(this)">Ficción</div>
-        <div class="chip" data-cat="hardcover-nonfiction" onclick="filterCat(this)">No ficción</div>
-        <div class="chip" data-cat="young-adult" onclick="filterCat(this)">Juvenil</div>
-      </div>
+  <div class="chip on" data-cat="hardcover-fiction" onclick="filterCat(this)">Ficción</div>
+  <div class="chip" data-cat="hardcover-nonfiction" onclick="filterCat(this)">No ficción</div>
+  <div class="chip" data-cat="young-adult-hardcover" onclick="filterCat(this)">Juvenil</div>
+  <div class="chip" data-cat="picture-books" onclick="filterCat(this)">Infantil</div>
+  <div class="chip" data-cat="advice-how-to-and-miscellaneous" onclick="filterCat(this)">Consejos</div>
+</div>
       <div id="book-list"><div class="spin"></div></div>
     </div>
     <nav class="bottomnav">
@@ -112,6 +114,18 @@
   <section class="screen" data-s="config">
     <div class="top"><h1>Configuración</h1></div>
     <div class="content">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px">
+  <div style="width:48px;height:48px;border-radius:50%;background:var(--crimson);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px">📖</div>
+  <div>
+    <div style="font-size:14px;font-weight:600" id="profile-stats">0 libros guardados</div>
+    <div style="font-size:11px;color:var(--muted)" id="profile-top">Sin categoría aún</div>
+  </div>
+</div>
+<div style="font-size:11px;color:var(--muted);font-weight:600;margin-bottom:10px">GÉNEROS FAVORITOS</div>
+<div class="row" id="profile-genres" style="margin-bottom:16px"></div>
+<div style="font-size:11px;color:var(--muted);font-weight:600;margin-bottom:10px">RANGO DE EDAD</div>
+<div class="row" id="profile-age" style="margin-bottom:10px"></div>
+<button class="btn primary" onclick="savePrefs()" style="margin-bottom:20px">Guardar cambios</button>
       <div style="font-size:11px;color:var(--muted);font-weight:600;margin-bottom:10px">ASPECTO DE LA APP</div>
       <div class="prefrow" style="margin-bottom:16px"><span style="font-size:13px">Tema oscuro</span><div class="switch" id="dark-switch" onclick="toggleDark(this)"><div class="knob"></div></div></div>
       <div style="font-size:11px;color:var(--muted);font-weight:600;margin-bottom:10px">AVISOS</div>
